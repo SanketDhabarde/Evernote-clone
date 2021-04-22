@@ -3,7 +3,7 @@ import './App.css';
 import Sidebar from './components/Sidebar/Sidebar';
 import Editor from './components/Editor/Editor';
 import { db } from './firebase';
-import firebase from 'firebase';
+import firebase from 'firebase/app';
 
 class App extends Component {
   state={
