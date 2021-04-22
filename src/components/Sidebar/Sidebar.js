@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import BorderColorIcon from '@material-ui/icons/BorderColor';
 import { withStyles } from '@material-ui/core/styles';
 import Styles from  './Styles';
 import { Button, List } from '@material-ui/core';

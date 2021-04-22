@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { removeHTMLTags } from '../../helper';
-import BorderColorIcon from '@material-ui/icons/BorderColor';
 import { withStyles } from '@material-ui/core/styles';
 import style from  './style';
 import { ListItem, ListItemText } from '@material-ui/core';
