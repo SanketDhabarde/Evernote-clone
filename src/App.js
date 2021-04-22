@@ -79,7 +79,27 @@ class App extends Component {
     })
   }
 
-  
+  deleteNote = async (note) => {
+    const noteIndex= this.state.notes.indexOf(note);
+    await this.setState({notes: this.state.notes.filter(noteInState => noteInState !== note)})
+
+    if(this.state.selectedNoteIndex === noteIndex){
+      this.setState({selectedNote: null, selectedNoteIndex: null});
+    }else{
+      if(this.state.notes.length > 1){
+        if(this.state.selectedNoteIndex < noteIndex){
+          this.selectNote(this.state.notes[this.state.selectedNoteIndex], this.state.selectedNoteIndex)
+        }else{
+          this.selectNote(this.state.notes[this.state.selectedNoteIndex - 1], this.state.selectedNoteIndex - 1)
+        } 
+      }else{
+        this.setState({selectedNote: null, selectedNoteIndex: null});
+      }
+       
+    }
+
+    db.collection('notes').doc(note.id).delete();
+  }
 
 
   

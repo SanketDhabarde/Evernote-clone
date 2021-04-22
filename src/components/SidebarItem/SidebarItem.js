@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import ReactQuill from 'react-quill';
-import debounce, { removeHTMLTags } from '../../helper';
+import { removeHTMLTags } from '../../helper';
 import BorderColorIcon from '@material-ui/icons/BorderColor';
 import { withStyles } from '@material-ui/core/styles';
 import style from  './style';
