@@ -11,6 +11,18 @@ class App extends Component {
     selectedNoteIndex: null,
     selectedNote: null
   }
+
+  componentDidMount = () => {
+    db.collection('notes').onSnapshot(snap => {
+      const notes = snap.docs.map( doc => {
+        const data = doc.data();
+          data['id'] = doc.id;
+          return data;
+      })
+      this.setState({notes: notes});
+    })
+  }
+
   render(){
     return (
       <div className="app-container">
@@ -44,16 +56,33 @@ class App extends Component {
     })
   }
 
-  componentDidMount = () => {
-    db.collection('notes').onSnapshot(snap => {
-      const notes = snap.docs.map( doc => {
-        const data = doc.data();
-          data['id'] = doc.id;
-          return data;
-      })
-      this.setState({notes: notes});
+  newNote = async (title) => {
+    const note={
+      title: title,
+      body: ''
+    }
+
+    const newNoteDB = await db
+      .collection('notes')
+      .add({
+        title: note.title,
+        body: note.body,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+      });
+    
+    const newNoteId = newNoteDB.id;
+    await this.setState({notes: [...this.state.notes, note]});
+    const indexOfNewNote = this.state.notes.indexOf(this.state.notes.filter(note => note.id === newNoteId)[0]);
+    this.setState({
+      selectedNote: this.state.notes[indexOfNewNote],
+      selectedNoteIndex: indexOfNewNote
     })
   }
+
+  
+
+
+  
 }
 
 export default App;

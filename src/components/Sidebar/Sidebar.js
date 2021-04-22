@@ -10,7 +10,7 @@ import SidebarItem from '../SidebarItem/SidebarItem';
 class Sidebar extends Component {
     state={
         addingNote: false,
-        text: null
+        title: null
     }
     render(){
 
@@ -27,7 +27,7 @@ class Sidebar extends Component {
                             placeholder="Enter note title..."
                             onKeyUp={(e) => this.updateTitle(e.target.value)}
                             />
-                            <Button className={classes.newNoteSubmitBtn} onClick={this.submitNote}>Submit note</Button>
+                            <Button className={classes.newNoteSubmitBtn} onClick={this.newNote}>Submit note</Button>
                         </div>
                          : null
                     }
@@ -55,20 +55,21 @@ class Sidebar extends Component {
     }
 
     updateTitle = (text) => {
-        this.setState({text:text});
+        this.setState({title:text});
     }
 
     onBtnClickHandler = () =>{
-        this.setState({text: null, addingNote: !this.state.addingNote})
+        this.setState({title: null, addingNote: !this.state.addingNote})
     }
 
-    submitNote = () => {
-        console.log(this.state);
+    newNote = () => {
+        this.props.newNote(this.state.title);
+        this.setState({ title: null, addingNote: false });
     }
     selectNote = (note, index) => this.props.selectNote(note, index);
 
-    deleteNote =() => {
-        console.log("note deleted");
+    deleteNote =(note) => {
+        this.props.deleteNote(note);
     }
     
 };
