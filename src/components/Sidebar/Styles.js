@@ -29,7 +29,7 @@ const styles = theme => ({
     },
     sidebarContainer: {
       marginTop: '0px',
-      width: '300px',
+      width: '20%',
       height: '100vh',
       boxSizing: 'border-box',
       float: 'left',
@@ -53,6 +53,7 @@ const styles = theme => ({
       borderRadius: '0px',
       color: 'white'
     }
+
   });
   
   export default styles;
