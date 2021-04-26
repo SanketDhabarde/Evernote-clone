@@ -21,7 +21,6 @@ const SidebarItem = ({note, index, classes, selectedNoteIndex, selectNote, delet
             className={classes.listItem}
             selected={selectedNoteIndex === index}
             alignItems="flex-start"
-            
             >
                 <div className={classes.textSection} >
                     <ListItemText
