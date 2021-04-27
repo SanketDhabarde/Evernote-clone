@@ -17,7 +17,8 @@ const Sidebar = ({ notes, classes, selectedNoteIndex, newNote, selectNote, delet
         setAddingNote(!addingNote);
     }
 
-    const onNewNote = () => {
+    const onNewNote = (event) => {
+        event.preventDefault();
         newNote(title);
         setTitle(null);
         setAddingNote(false);
@@ -34,14 +35,14 @@ const Sidebar = ({ notes, classes, selectedNoteIndex, newNote, selectNote, delet
             <Button className={classes.newNoteBtn} onClick={onBtnClickHandler}>{addingNote ? 'Cancel' : 'new Note'}</Button>
             {
                 addingNote ?
-                <div> 
+                <form> 
                     <input type="text"
                     className={classes.newNoteInput}
                     placeholder="Enter note title..."
                     onKeyUp={(e) => updateTitle(e.target.value)}
                     />
-                    <Button className={classes.newNoteSubmitBtn} onClick={onNewNote}>Submit note</Button>
-                </div>
+                    <Button type="submit" className={classes.newNoteSubmitBtn} onClick={onNewNote}>Submit note</Button>
+                </form>
                  : null
             }
             <List>

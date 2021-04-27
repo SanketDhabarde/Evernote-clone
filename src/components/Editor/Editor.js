@@ -1,10 +1,10 @@
 import React, { useState, useEffect} from "react";
 import ReactQuill from 'react-quill';
 import debounce from '../../helper';
-import BorderColorIcon from '@material-ui/icons/BorderColor';
 import { withStyles } from '@material-ui/core/styles';
 import Style from './Style';
 import { db } from '../../firebase';
+import EditIcon from '@material-ui/icons/Edit';
 
 
 const Editor = ({classes, selectedNote}) => {
@@ -18,7 +18,7 @@ const Editor = ({classes, selectedNote}) => {
         setText(selectedNote.body);
         setTitle(selectedNote.title);
         setId(selectedNote.id);
-    },[selectedNote])
+    },[selectedNote.id, selectedNote.title, selectedNote.body])
     
 
     useEffect(() => {
@@ -30,7 +30,7 @@ const Editor = ({classes, selectedNote}) => {
               body: text,
             });
         }
-      }, [updateBodyDebounce]);
+      }, [updateBodyDebounce, selectedNote.id, text]);
     
       useEffect(() => {
           db
@@ -39,7 +39,7 @@ const Editor = ({classes, selectedNote}) => {
           .update({
             title: title,
           });
-      }, [updateTitleDebounce]);
+      }, [updateTitleDebounce, selectedNote.id, title]);
 
 
     const updateBody = async (val) =>{
@@ -52,12 +52,14 @@ const Editor = ({classes, selectedNote}) => {
 
         return(
             <div className={classes.editorContainer}>
-                <BorderColorIcon className={classes.editIcon}></BorderColorIcon>
-                <input
-                className={classes.titleInput}
-                value={title}
-                onChange={(e) => titleChange(e.target.value)}>
-                </input>
+                <div className={classes.editorHeader}>
+                  <EditIcon className={classes.editIcon}></EditIcon>
+                    <input
+                    className={classes.titleInput}
+                    value={title}
+                    onChange={(e) => titleChange(e.target.value)}>
+                    </input>
+                </div>
                 <ReactQuill
                 value={text}
                 onChange={updateBody}
